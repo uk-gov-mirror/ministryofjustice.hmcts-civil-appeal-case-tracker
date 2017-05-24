@@ -1,11 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- ======================================================================
-     14 Oct 2011 09:35:53
-
-     Project    listing_calendar
-     descriptionlisting_calendar Public application
-     ====================================================================== -->
-<project name="Listing Calendar" default="development_build" basedir=".">
+<project name="Listing Calendar" default="build" basedir=".">
     <property environment="env"/>
     <property file="LC.antuser.properties"/>
     <property name="build.dir" value="build"/>
@@ -13,12 +7,10 @@
     <!-- =================================
           target: Development_Build
        ================================= -->
-    <target name="development_build" depends="gulp, compile, copy_resources_dev"
+    <target name="build" depends="gulp, compile"
             description="Unloads previous application version and deploys a new one">
-        <echo>Starting a development build - this will compile the code and produce a war file</echo>
+        <echo>Starting a build - this will compile the code and produce a war file</echo>
         <echo>*****************************************************************************</echo>
-        <echo>If anything odd happens (like it isn't deploying ) make sure you close any references to any files in the
-            app
         </echo>
         <echo>Please enjoy the flight and ensure all luggage is safely stowed</echo>
         <tstamp>
@@ -53,23 +45,6 @@
     <target name="info">
         <echo>ant.version=${ant.version}</echo>
         <echo>ant.home=${ant.home}</echo>
-    </target>
-
-
-    <!-- =================================
-          target: deployment_build
-         ================================= -->
-    <target name="prod_build" depends="gulp, compile, copy_resources_live" description="description">
-        <echo>Starting a full build - this will compile the code and jar it ready for deployment</echo>
-        <echo>*****************************************************************************</echo>
-        <echo>This may be a good time to go get something to drink - while the tests run...</echo>
-        <tstamp>
-            <format property="time" pattern="dd/MM/yyyy hh:mm:ss aa" unit="hour"/>
-        </tstamp>
-        <echo>*****************************************************************************</echo>
-        <echo>Time started: ${time} - action occuring in deploy directoy!</echo>
-        <antcall target="war"/>
-        <zip basedir="deploy" destfile="listing_calendar.zip"/>
     </target>
 
     <!-- - - - - - - - - - - - - - - - - -
@@ -148,38 +123,6 @@
                 <include name="hibernate.cfg.xml"/>
             </fileset>
         </copy>
-    </target>
-
-    <target name="copy_resources_dev" depends="copy_resources">
-
-        <echo>hibernate.cfg.xml - Replace values for DEV DB connection</echo>
-
-        <replace file="${build.dir}/WEB-INF/classes/hibernate.cfg.xml" token="@@SQLSERVER_URL@@"
-                 value="${env.DEV_CASE_TRACKER_URL}"/>
-        <replace file="${build.dir}/WEB-INF/classes/hibernate.cfg.xml" token="@@SQLSERVER_USER@@"
-                 value="${env.DEV_CASE_TRACKER_USER}"/>
-        <replace file="${build.dir}/WEB-INF/classes/hibernate.cfg.xml" token="@@SQLSERVER_PWD@@"
-                 value="${env.DEV_CASE_TRACKER_PWD}"/>
-    </target>
-
-
-    <target name="copy_resources_live" depends="copy_resources">
-
-        <echo>hibernate.cfg.xml - Replace values for LIVE DB connection</echo>
-
-        <replace file="${build.dir}/WEB-INF/classes/hibernate.cfg.xml" token="@@SQLSERVER_URL@@"
-                 value="${env.LIVE_CASE_TRACKER_URL}"/>
-        <replace file="${build.dir}/WEB-INF/classes/hibernate.cfg.xml" token="@@SQLSERVER_USER@@"
-                 value="${env.LIVE_CASE_TRACKER_USER}"/>
-        <replace file="${build.dir}/WEB-INF/classes/hibernate.cfg.xml" token="@@SQLSERVER_PWD@@"
-                 value="${env.LIVE_CASE_TRACKER_PWD}"/>
-    </target>
-
-
-    <!-- - - - - - - - - - - - - - - - - -
-          target: copy_test_resources
-         - - - - - - - - - - - - - - - - - -->
-    <target name="copy_test_resources">
     </target>
 
     <!-- - - - - - - - - - - - - - - - - -
