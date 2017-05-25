@@ -21,7 +21,10 @@
       String userid = request.getParameter("userid");
       String password = request.getParameter("password");
 
-      if ((userid.equals("admin")) && (password.equals("diary"))) {
+      String adminUser = System.getenv("ADMIN_USER");
+      String adminPass = System.getenv("ADMIN_PASS");
+
+      if ((userid.equals(adminUser)) && (password.equals(adminPass))) {
       session.setAttribute("UserName", userid);
 
       %>
