@@ -11,7 +11,6 @@
             description="Unloads previous application version and deploys a new one">
         <echo>Starting a build - this will compile the code and produce a war file</echo>
         <echo>*****************************************************************************</echo>
-        </echo>
         <echo>Please enjoy the flight and ensure all luggage is safely stowed</echo>
         <tstamp>
             <format property="time" pattern="dd/MM/yyyy hh:mm:ss aa" unit="hour"/>
