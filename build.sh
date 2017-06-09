@@ -1,4 +1,4 @@
 #!/bin/bash
 ant
-docker build -t crb .
+docker build -t cact .
 

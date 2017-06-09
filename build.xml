@@ -7,7 +7,7 @@
     <!-- =================================
           target: Development_Build
        ================================= -->
-    <target name="build" depends="gulp, compile"
+    <target name="build" depends="gulp, compile, copy_resources"
             description="Unloads previous application version and deploys a new one">
         <echo>Starting a build - this will compile the code and produce a war file</echo>
         <echo>*****************************************************************************</echo>
@@ -98,33 +98,6 @@
     </target>
 
     <!-- - - - - - - - - - - - - - - - - -
-          target: copy_resources
-         - - - - - - - - - - - - - - - - - -->
-    <target name="copy_resources">
-
-        <echo>Copying all files that exist external to the jar files but are needed for deployment</echo>
-
-        <copy todir="${build.dir}">
-            <fileset dir=".">
-                <include name="error.jsp"/>
-                <include name="index.jsp"/>
-                <include name="search.jsp"/>
-                <include name="detail.jsp"/>
-                <include name="Version.txt"/>
-                <include name="HTMLCalendar.htm"/>
-            </fileset>
-        </copy>
-
-        <echo>Copy hibernate.cfg.xml to build</echo>
-
-        <copy todir="${build.dir}/WEB-INF/classes" overwrite="true">
-            <fileset dir="WEB-INF/classes">
-                <include name="hibernate.cfg.xml"/>
-            </fileset>
-        </copy>
-    </target>
-
-    <!-- - - - - - - - - - - - - - - - - -
           target: clean
          - - - - - - - - - - - - - - - - - -->
     <target name="clean" depends="info">
@@ -167,12 +140,26 @@
                 <include name="assets/images/**"/>
                 <include name="assets/stylesheets/images/**"/>
                 <include name="assets/stylesheets/fonts/**"/>
-
                 <exclude name="WEB-INF/**/*.class"/>
-                <exclude name="WEB-INF/classes/hibernate*"/>
             </fileset>
         </copy>
         <antcall target="copy-govuk-frontend-toolkit"/>
+    </target>
+
+    <target name="copy_resources">
+
+        <echo>Copying all files that exist external to the jar files but are needed for deployment</echo>
+
+        <copy todir="${build.dir}">
+            <fileset dir=".">
+                <include name="error.jsp"/>
+                <include name="index.jsp"/>
+                <include name="search.jsp"/>
+                <include name="detail.jsp"/>
+                <include name="Version.txt"/>
+                <include name="HTMLCalendar.htm"/>
+            </fileset>
+        </copy>
     </target>
 
     <!-- =================================
